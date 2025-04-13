@@ -1,0 +1,7 @@
+.floating-element {
+  position: absolute;
+  z-index: 1000;
+}
+.logo {
+  height: 42px;
+}

@@ -1,0 +1,106 @@
+<script lang="ts" setup>
+import { ref } from "vue";
+
+const styleTop = ref("0");
+const styleLeft = ref("0");
+const styleDisplay = ref("none");
+
+const followPosition = () => {
+  requestAnimationFrame(() => {
+    const selection = window.getSelection();
+
+    if (selection?.isCollapsed) {
+      styleDisplay.value = "none";
+      return;
+    }
+
+    if (selection && selection.rangeCount > 0) {
+      const rect = selection.getRangeAt(0).getBoundingClientRect();
+      styleDisplay.value = "block"; // Make it visible
+
+      styleTop.value = `${rect?.top - 42}px`;
+      styleLeft.value = `${rect?.right}px`;
+    }
+  });
+};
+
+onMounted(() => {
+  window.addEventListener("mouseup", followPosition);
+  window.addEventListener("scroll", followPosition, true);
+});
+
+onUnmounted(() => {
+  window.removeEventListener("mouseup", followPosition);
+  window.removeEventListener("scroll", followPosition, true);
+});
+</script>
+
+<template>
+  <div
+    class="floating-element"
+    :style="`top: ${styleTop}; left: ${styleLeft}; display: ${styleDisplay}`"
+  >
+    <svg
+      class="logo"
+      width="40"
+      height="32"
+      viewBox="0 0 40 32"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path d="M19.5349 0L39.0698 32H0L19.5349 0Z" fill="#F0F2F6" />
+      <path
+        d="M11.4286 10H12.5714C13.4807 10 14.3528 10.3556 14.9958 10.9885C15.6388 11.6214 16 12.4799 16 13.375C16 12.4799 16.3612 11.6214 17.0042 10.9885C17.6472 10.3556 18.5193 10 19.4286 10H20.5714"
+        fill="#F0F2F6"
+      />
+      <path
+        d="M20.5714 28H19.4286C18.5193 28 17.6472 27.6444 17.0042 27.0115C16.3612 26.3786 16 25.5201 16 24.625C16 25.5201 15.6388 26.3786 14.9958 27.0115C14.3528 27.6444 13.4807 28 12.5714 28H11.4286"
+        fill="#F0F2F6"
+      />
+      <path d="M16 13.375V24.625V13.375Z" fill="#F0F2F6" />
+      <path
+        d="M11.4286 10H12.5714C13.4807 10 14.3528 10.3556 14.9958 10.9885C15.6388 11.6214 16 12.4799 16 13.375M16 13.375C16 12.4799 16.3612 11.6214 17.0042 10.9885C17.6472 10.3556 18.5193 10 19.4286 10H20.5714M16 13.375V24.625M20.5714 28H19.4286C18.5193 28 17.6472 27.6444 17.0042 27.0115C16.3612 26.3786 16 25.5201 16 24.625M16 24.625C16 25.5201 15.6388 26.3786 14.9958 27.0115C14.3528 27.6444 13.4807 28 12.5714 28H11.4286M12 23.5H9.42857M6.28571 23.5C5.67951 23.5 5.09812 23.2629 4.66947 22.841C4.24082 22.419 4 21.8467 4 21.25M4 16.75C4 16.1533 4.24082 15.581 4.66947 15.159C5.09812 14.7371 5.67951 14.5 6.28571 14.5M12 14.5H9.42857M19.4286 14.5H24.2857M33.7143 14.5C34.3205 14.5 34.9019 14.7371 35.3305 15.159C35.7592 15.581 36 16.1533 36 16.75M36 21.25C36 21.8467 35.7592 22.419 35.3305 22.841C34.9019 23.2629 34.3205 23.5 33.7143 23.5M19.4286 23.5H24.2857M27.7143 14.5H30.1429M27.7143 23.5H30.1429"
+        stroke="#4FABFF"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+      <path
+        d="M32 5.344L34.072 0H35.36L37.44 5.344H36.168L35.84 4.408H33.608L33.264 5.344H32ZM33.92 3.448H35.52L34.728 1.216L33.92 3.448Z"
+        fill="url(#paint0_linear_624_144)"
+      />
+      <path
+        d="M38.0804 5.344V0H39.2484V5.344H38.0804Z"
+        fill="url(#paint1_linear_624_144)"
+      />
+      <defs>
+        <linearGradient
+          id="paint0_linear_624_144"
+          x1="39.8091"
+          y1="3.56267"
+          x2="31.4393"
+          y2="3.56267"
+          gradientUnits="userSpaceOnUse"
+        >
+          <stop stop-color="#EE4D5D" />
+          <stop offset="0.34" stop-color="#AC87EB" />
+          <stop offset="0.67" stop-color="#4FABFF" />
+          <stop offset="1" stop-color="#076EFF" />
+        </linearGradient>
+        <linearGradient
+          id="paint1_linear_624_144"
+          x1="39.8091"
+          y1="3.56267"
+          x2="31.4393"
+          y2="3.56267"
+          gradientUnits="userSpaceOnUse"
+        >
+          <stop stop-color="#EE4D5D" />
+          <stop offset="0.34" stop-color="#AC87EB" />
+          <stop offset="0.67" stop-color="#4FABFF" />
+          <stop offset="1" stop-color="#076EFF" />
+        </linearGradient>
+      </defs>
+    </svg>
+  </div>
+</template>
