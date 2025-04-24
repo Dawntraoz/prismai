@@ -5,9 +5,16 @@ import SettingsScreen from "./components/SettingsScreen.vue";
 
 <template>
   <Suspense>
-    <main>
+    <main class="popup-container">
       <SplashScreen />
       <SettingsScreen />
     </main>
   </Suspense>
 </template>
+
+<style scoped>
+.popup-container {
+  width: 100%;
+  height: 100%;
+}
+</style>
