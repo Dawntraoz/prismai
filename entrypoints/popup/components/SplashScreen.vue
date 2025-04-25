@@ -18,12 +18,30 @@ const { currentPage, updatePage } = await usePopupNavigation();
 
 <style scoped>
 .splash-screen {
+  position: relative;
+  z-index: 0;
   display: flex;
   flex-direction: column;
   align-items: center;
   height: calc(100% - 24px);
   background-color: var(--prismai-main-black);
   padding: 12px 16px;
+
+  &::after {
+    content: "";
+    display: block;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    z-index: -1;
+    translate: -15% -10%;
+    rotate: 40deg;
+    width: 600px;
+    height: 342px;
+    background-image: url(./prismai-bg.svg);
+    background-size: contain;
+    background-repeat: no-repeat;
+  }
 }
 
 .splash-screen__logo {
