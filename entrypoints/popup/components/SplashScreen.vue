@@ -29,8 +29,7 @@ const { currentPage, updatePage } = await usePopupNavigation();
 
   &::after {
     content: "";
-    display: block;
-    position: absolute;
+    position: fixed;
     left: 0;
     bottom: 0;
     z-index: -1;

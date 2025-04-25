@@ -7,7 +7,8 @@
   --prismai-main-white: #fff;
   --prismai-main-gray: #f5f7f9;
   --prismai-main-gray-light: #f0f2f6;
-  --prismai-main-gray-dark: #595959;
+  --prismai-main-gray-lighter: #f9fafb;
+  --prismai-main-gray-dark: #8e8e8e;
   --prismai-main-gradient: linear-gradient(
     270deg,
     #ee4d5d -7.73%,
@@ -38,6 +39,7 @@
 ** Main Styles
 */
 body {
+  font-family: "Roboto Variable", sans-serif;
   margin: 0;
   display: flex;
   place-items: center;
@@ -50,7 +52,22 @@ body {
   width: 100vw;
 }
 
-button {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: 600;
+  margin: 0;
+}
+
+p {
+  font-weight: 400;
+  margin: 0;
+}
+
+button:not(.icon) {
   font-family: "Roboto Variable", sans-serif;
   font-size: 16px;
   font-weight: 400;
@@ -64,5 +81,13 @@ button {
   border: none;
   border-radius: 20px;
 
+  cursor: pointer;
+}
+
+button.icon {
+  background-color: transparent;
+  border: none;
+  padding: 0;
+  line-height: 0;
   cursor: pointer;
 }
