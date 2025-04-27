@@ -10,11 +10,20 @@
   --prismai-main-gray-dark: #595959;
 }
 
+@font-face {
+  font-family: "Roboto Variable";
+  src: url("./fonts/Roboto/Roboto-VariableFont_wdth,wght.ttf")
+    format("truetype");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
 /*
 ** Main Styles
 */
 body {
-  font-family: "Roboto", sans-serif;
+  font-family: "Roboto Variable", sans-serif;
   font-size: 14px;
   color: var(--prismai-main-black);
 }
