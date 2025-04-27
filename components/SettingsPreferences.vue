@@ -37,7 +37,7 @@ const { preferencesMetadata, instancePreferences, updatePreferences } =
           :preference="preference"
           :modelValue="instancePreferences[typeKey][key]"
           @update:modelValue="
-            ($event: boolean) =>
+            ($event: string) =>
               updatePreferences({
                 ...instancePreferences,
                 [typeKey]: {
