@@ -49,7 +49,7 @@ const emit = defineEmits(["update:modelValue"]);
 
   .prismai-preference__description {
     font-size: 12px;
-    font-weight: 400;
+    font-weight: 350;
     color: var(--prismai-main-gray-dark);
   }
 }

@@ -63,14 +63,18 @@ h6 {
 }
 
 p {
-  font-weight: 400;
+  font-weight: 350;
   margin: 0;
+}
+
+a {
+  color: var(--prismai-primary-color-dark);
 }
 
 button:not(.icon) {
   font-family: "Roboto Variable", sans-serif;
   font-size: 16px;
-  font-weight: 400;
+  font-weight: 350;
   text-align: center;
   color: var(--prismai-main-white);
 

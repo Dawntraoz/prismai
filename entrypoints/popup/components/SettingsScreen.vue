@@ -109,6 +109,7 @@ const openOptions = () => {
       h1 {
         font-size: 20px;
       }
+
       p {
         font-size: 12px;
         line-height: 16px;
