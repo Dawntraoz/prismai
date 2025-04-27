@@ -76,7 +76,7 @@ const openOptions = () => {
     .settings-screen__brand {
       font-family: "Gantari", sans-serif;
       font-size: 24px;
-      font-weight: 600;
+      font-weight: 500;
       margin: 0;
       background: var(--prismai-main-gradient);
       background-clip: text;

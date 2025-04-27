@@ -1,11 +1,16 @@
+export type PreferenceMetadata = {
+  id: string;
+  title: string;
+  description: string;
+  type: 'checkbox' | 'select';
+  options?: {
+    code: string;
+    label: string;
+  }[];
+}
 type PreferencesMetadata = {
   [key: string]: {
-    [key: string]: {
-      id: string;
-      title: string;
-      description: string;
-      type: 'checkbox' | 'select';
-    }
+    [key: string]: PreferenceMetadata;
   }
 }
 
@@ -45,6 +50,14 @@ export async function usePreferences() {
         title: 'Translation Language',
         description: 'Set your desired target language.',
         type: 'select',
+        options: [
+          { code: 'en', label: 'English' },
+          { code: 'es', label: 'Spanish' },
+          { code: 'fr', label: 'French' },
+          { code: 'de', label: 'German' },
+          { code: 'zh', label: 'Chinese' },
+          { code: 'ja', label: 'Japanese' },
+        ]
       },
       summarize: {
         id: 'sentence-summarize',
@@ -55,11 +68,18 @@ export async function usePreferences() {
     }
   }
 
+  const unwatch = preferences.watch((newValue) => {
+    instancePreferences.value = newValue
+  })
+
+  onUnmounted(() => {
+    unwatch()
+  })
+
   instancePreferences.value = await preferences.getValue()
 
   const updatePreferences = async (newValue: Preferences) => {
     await preferences.setValue(newValue)
-    instancePreferences.value = await preferences.getValue()
   }
 
   return {

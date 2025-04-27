@@ -58,7 +58,7 @@ h3,
 h4,
 h5,
 h6 {
-  font-weight: 600;
+  font-weight: 500;
   margin: 0;
 }
 
@@ -90,4 +90,119 @@ button.icon {
   padding: 0;
   line-height: 0;
   cursor: pointer;
+}
+
+/* -- Input Toggle */
+input:where([type="checkbox"][role="switch"]) {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  position: relative;
+  color: inherit;
+  font-size: inherit;
+  width: 34px;
+  height: 16px;
+  box-sizing: content-box;
+  border: none;
+  border-radius: 8px;
+  background-color: var(--prismai-main-gray-light);
+  transition: background-color 0.2s ease-in-out;
+  cursor: pointer;
+  vertical-align: text-bottom;
+  margin: auto;
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin: 2px;
+    box-sizing: border-box;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background-color: var(--prismai-main-white);
+    transition: left 0.2s ease-in-out;
+  }
+
+  &:checked {
+    background-color: var(--prismai-primary-color-dark);
+    &::before {
+      left: calc(100% - 16px);
+    }
+  }
+
+  &:focus {
+    outline: 1px solid var(--prismai-main-gray-light);
+    outline-offset: 1px;
+
+    &:checked {
+      outline-color: var(--prismai-primary-color-dark);
+    }
+  }
+}
+
+/* -- Input Select */
+select {
+  &,
+  &::picker(select) {
+    appearance: base-select;
+  }
+
+  display: flex;
+  align-items: center;
+  border: none;
+  background-color: var(--prismai-primary-color-dark);
+  margin-right: 16px;
+
+  font-size: 14px;
+  text-transform: uppercase;
+  color: var(--prismai-main-white);
+
+  cursor: pointer;
+
+  &:focus {
+    outline: 1px solid var(--prismai-primary-color-dark);
+    outline-offset: 1px;
+  }
+
+  &::picker-icon {
+    position: absolute;
+    right: 0;
+    color: var(--prismai-main-black);
+    content: url('data:image/svg+xml,<svg width="10" height="5" viewBox="0 0 10 5" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 0.5L5 4.5L9 0.5" stroke="%23111111" stroke-linecap="round" stroke-linejoin="round"/></svg>');
+    scale: 1;
+    transition: scale 0.3s ease-in-out;
+  }
+
+  &:open::picker-icon {
+    scale: -1;
+  }
+
+  &::picker(select) {
+    border: 1px solid var(--prismai-main-gray-light);
+    background: var(--prismai-main-gray-lighter);
+    border-radius: 8px;
+    margin: 6px 0;
+    padding: 4px;
+  }
+
+  option {
+    border-radius: 4px;
+    gap: 0;
+
+    &:not(:last-child) {
+      margin-bottom: 4px;
+    }
+    &::checkmark {
+      content: "";
+    }
+    &:checked {
+      background-color: var(--prismai-primary-color-dark);
+      color: var(--prismai-main-white);
+    }
+    &:hover:not(:checked) {
+      background-color: var(--prismai-main-gray-light);
+    }
+  }
 }

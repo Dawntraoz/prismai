@@ -54,7 +54,7 @@ const { currentPage, updatePage } = await usePopupNavigation();
   & h1 {
     font-family: "Gantari", sans-serif;
     font-size: 54px;
-    font-weight: 600;
+    font-weight: 500;
     margin: 0;
     background: var(--prismai-main-gradient);
     background-clip: text;
