@@ -1,8 +1,9 @@
 <script lang="ts" setup>
 import LogoPrismai from "@/components/LogoPrismai.vue";
-import { IconDropdown, IconSparkles, IconLoading } from "@/components/icons";
+import ActionsBar from "./ActionsBar.vue";
 
 const textSelection = ref("");
+const selectionType = ref("word");
 const styleTop = ref("0");
 const styleLeft = ref("0");
 const styleDisplay = ref("none");
@@ -20,6 +21,8 @@ const showContainer = () => {
       selection.rangeCount > 0
     ) {
       textSelection.value = selection.toString();
+      selectionType.value =
+        selection.toString().split(" ").length > 1 ? "sentence" : "word";
 
       try {
         const rect = selection.getRangeAt(0).getBoundingClientRect();
@@ -69,9 +72,10 @@ const handleClickOutside = (event: MouseEvent) => {
 
 const handleScroll = () => {
   if (styleDisplay.value === "block") {
-    showContainer();
+    // // Complex approach: re-calculate position on scroll
+    // showContainer();
     // Alternative simpler approach: hide on scroll
-    // styleDisplay.value = 'none';
+    styleDisplay.value = "none";
   }
 };
 
@@ -87,56 +91,32 @@ onUnmounted(() => {
   window.removeEventListener("scroll", handleScroll, true);
 });
 
-const openDetails = ref(false);
-
 // Call background script via Extension messaging: https://wxt.dev/guide/essentials/messaging.html
 </script>
 
 <template>
-  <main
-    ref="containerRef"
-    class="prismai-container"
-    :style="{
-      top: styleTop,
-      left: styleLeft,
-      display: styleDisplay,
-    }"
-    @mousedown.prevent
-  >
-    <header class="prismai-header">
-      <LogoPrismai />
-      <p>
-        Word: <span class="prismai-tag">{{ textSelection }}</span>
-      </p>
-    </header>
-    <ul class="prismai-accordions">
-      <li class="prismai-accordion">
-        <header
-          class="prismai-accordion-header"
-          :class="{ 'is-open': openDetails }"
-          @click="() => (openDetails = !openDetails)"
+  <Suspense>
+    <main
+      ref="containerRef"
+      class="prismai-container"
+      :style="{
+        top: styleTop,
+        left: styleLeft,
+        display: styleDisplay,
+      }"
+      @mousedown.prevent
+    >
+      <header class="prismai-header">
+        <LogoPrismai />
+        <p class="prismai-selection-type">{{ selectionType }}:</p>
+        <p
+          class="prismai-tag"
+          :class="selectionType === 'sentence' && 'prismai-tag--full'"
         >
-          <span>Description</span>
-          <IconDropdown />
-        </header>
-        <p v-if="openDetails" class="prismai-accordion-content">
-          The occurrence and development of events by chance in a happy or
-          beneficial way.
+          <span>{{ textSelection }}</span>
         </p>
-      </li>
-      <li class="prismai-accordion">
-        <header class="prismai-accordion-header">
-          <span>Usage</span>
-          <IconSparkles />
-        </header>
-      </li>
-
-      <li class="prismai-accordion">
-        <header class="prismai-accordion-header">
-          <span>Etymology</span>
-          <IconLoading />
-        </header>
-      </li>
-    </ul>
-  </main>
+      </header>
+      <ActionsBar :type="selectionType" />
+    </main>
+  </Suspense>
 </template>
