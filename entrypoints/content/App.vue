@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import LogoPrismai from "@/components/LogoPrismai.vue";
-import ActionsBar from "./ActionsBar.vue";
+import ActionsBar from "./components/ActionsBar.vue";
 
 const textSelection = ref("");
 const selectionType = ref("word");
