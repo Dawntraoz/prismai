@@ -1,15 +1,53 @@
 <script lang="ts" setup>
 import { IconDropdown, IconSparkles, IconLoading } from "@/components/icons";
+import { sendMessage } from "webext-bridge/content-script";
 
 const props = defineProps<{
-  preferenceValue: boolean;
+  preferenceValue: boolean | string;
   preferenceKey: string;
   auto?: boolean;
 }>();
 
-const result = ref(props.auto ? "some" : undefined);
+const result = ref<string | null>(props.auto ? "some" : null);
 const isLoading = ref(false);
+const error = ref<string | null>(null);
+
 const openResult = ref(true);
+
+async function fetchAiResponse(promptText: string) {
+  if (!promptText || isLoading.value) return;
+
+  console.log(`[ContentScript] Sending prompt: "${promptText}"`);
+  isLoading.value = true;
+  result.value = null;
+  error.value = null;
+
+  try {
+    const response = await sendMessage(
+      "get-ai-response",
+      { prompt: promptText },
+      "background"
+    );
+
+    console.log("[ContentScript] Received response:", response);
+    if (typeof response === "string" && response.startsWith("Error:")) {
+      throw new Error(response.substring(7)); // Remove "Error: " prefix
+    }
+
+    if (typeof response === "string") {
+      result.value = response;
+    } else {
+      throw new Error("Unexpected response format received.");
+    }
+  } catch (err) {
+    console.error("[ContentScript] Error fetching AI response:", error);
+    error.value =
+      err instanceof Error ? err.message : "An unknown error occurred.";
+    result.value = null;
+  } finally {
+    isLoading.value = false;
+  }
+}
 </script>
 
 <template>
@@ -22,7 +60,10 @@ const openResult = ref(true);
       <span class="prismai-accordions__item-title">{{
         preferenceKey.replaceAll("-", " ")
       }}</span>
-      <IconSparkles v-if="!auto" />
+      <IconSparkles
+        v-if="!auto && !isLoading && !result"
+        @click="fetchAiResponse(preferenceKey)"
+      />
       <IconLoading v-else-if="isLoading" />
       <IconDropdown v-else class="dropdown-icon" />
     </header>

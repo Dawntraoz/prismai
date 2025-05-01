@@ -1,3 +1,4 @@
+// WXT Storage docs: https://wxt.dev/storage.html#defining-storage-items
 export const popupCurrentPage = storage.defineItem<string>(
   'local:popupCurrentPage',
   {

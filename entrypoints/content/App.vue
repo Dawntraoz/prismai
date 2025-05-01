@@ -3,7 +3,7 @@ import LogoPrismai from "@/components/LogoPrismai.vue";
 import ActionsBar from "./components/ActionsBar.vue";
 
 const textSelection = ref("");
-const selectionType = ref("word");
+const selectionType = ref<"word" | "sentence">("word");
 const styleTop = ref("0");
 const styleLeft = ref("0");
 const styleDisplay = ref("none");
@@ -12,6 +12,7 @@ const containerRef = ref<HTMLElement>();
 
 const showContainer = () => {
   requestAnimationFrame(() => {
+    // Selection API docs: https://developer.mozilla.org/en-US/docs/Web/API/Selection
     const selection = window.getSelection();
 
     if (
@@ -116,7 +117,7 @@ onUnmounted(() => {
           <span>{{ textSelection }}</span>
         </p>
       </header>
-      <ActionsBar :type="selectionType" />
+      <ActionsBar :key="textSelection" :type="selectionType" />
     </main>
   </Suspense>
 </template>

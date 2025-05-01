@@ -15,7 +15,8 @@
     "postinstall": "wxt prepare"
   },
   "dependencies": {
-    "vue": "^3.5.12"
+    "vue": "^3.5.12",
+    "webext-bridge": "^6.0.1"
   },
   "devDependencies": {
     "@wxt-dev/module-vue": "^1.0.1",

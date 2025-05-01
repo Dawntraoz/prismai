@@ -1,5 +1,42 @@
+import { onMessage } from "webext-bridge/background";
+
+type AiPromptPayload = {
+  prompt: string;
+}
+
 export default defineBackground(() => {
-  console.log('Hello background!', { id: browser.runtime.id });
+
+  async function callYourActualAiApi(promptText: string): Promise<string> {
+    console.log(`[Background] Calling AI for: "${promptText}"`);
+    try {
+      await new Promise(resolve => setTimeout(resolve, 1500)); // Simulate delay
+      const aiResult = `Simulated AI response for: "${promptText}"`;
+      console.log("[Background] AI Result:", aiResult);
+      return aiResult;
+    } catch (error) {
+      console.error("[Background] Error calling AI API:", error);
+      throw new Error(`AI API Call Failed: ${error instanceof Error ? error.message : String(error)}`);
+    }
+  }
+
+  onMessage<AiPromptPayload, string>('get-ai-response', async (message) => {
+    console.log("[Background] Received 'get-ai-response'");
+
+    const prompt = message.data?.prompt;
+
+    if (typeof prompt === 'string' && prompt.trim() !== '') {
+      try {
+        const aiResponse = await callYourActualAiApi(prompt);
+        return aiResponse;
+      } catch (error) {
+        console.error("[Background] Error processing AI request:", error);
+        const errorMessage = error instanceof Error ? error.message : "Unknown error during AI processing.";
+        return `Error: ${errorMessage}`;
+      }
+    } else {
+      return "Error: Invalid prompt received.";
+    }
+  });
 
   // /** Commented since there's a day limit that can be surpassed if executing locally. */
   // const word = 'serendipity';
