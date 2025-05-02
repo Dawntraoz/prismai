@@ -15,9 +15,11 @@ type WordPreferences = {
 }
 
 type SentencePreferences = {
-  language: string;
+  translate: string;
   summarize: boolean;
 }
+
+export type PreferenceKeys = "description" | keyof WordPreferences | keyof SentencePreferences;
 
 export type Preferences = {
   word: WordPreferences;
@@ -35,7 +37,7 @@ export const preferences = storage.defineItem<Preferences>(
         'related-terms': false,
       },
       sentence: {
-        language: 'en',
+        translate: 'en',
         summarize: true,
       }
     },

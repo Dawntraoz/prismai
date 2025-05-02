@@ -4,28 +4,33 @@ import { sendMessage } from "webext-bridge/content-script";
 
 const props = defineProps<{
   preferenceValue: boolean | string;
-  preferenceKey: string;
+  preferenceKey: PreferenceKeys;
   auto?: boolean;
 }>();
 
-const result = ref<string | null>(props.auto ? "some" : null);
+const { textSelection } = useSelection();
+
+const result = ref<string | null>(null);
 const isLoading = ref(false);
 const error = ref<string | null>(null);
 
 const openResult = ref(true);
 
-async function fetchAiResponse(promptText: string) {
-  if (!promptText || isLoading.value) return;
+const fetchBuiltInByAction = async (actionType: PreferenceKeys) => {
+  if (!actionType || !textSelection.value || isLoading.value) return;
 
-  console.log(`[ContentScript] Sending prompt: "${promptText}"`);
+  console.log(
+    `[ContentScript] Sending message with action type: "${actionType}" and text selection: "${textSelection.value}"`
+  );
   isLoading.value = true;
   result.value = null;
   error.value = null;
 
   try {
+    // Call background script via Extension messaging: https://wxt.dev/guide/essentials/messaging.html
     const response = await sendMessage(
       "get-ai-response",
-      { prompt: promptText },
+      { actionType, textSelection: textSelection.value },
       "background"
     );
 
@@ -47,7 +52,13 @@ async function fetchAiResponse(promptText: string) {
   } finally {
     isLoading.value = false;
   }
-}
+};
+
+onMounted(() => {
+  if (props.auto) {
+    fetchBuiltInByAction(props.preferenceKey);
+  }
+});
 </script>
 
 <template>
@@ -62,7 +73,7 @@ async function fetchAiResponse(promptText: string) {
       }}</span>
       <IconSparkles
         v-if="!auto && !isLoading && !result"
-        @click="fetchAiResponse(preferenceKey)"
+        @click="fetchBuiltInByAction(preferenceKey)"
       />
       <IconLoading v-else-if="isLoading" />
       <IconDropdown v-else class="dropdown-icon" />

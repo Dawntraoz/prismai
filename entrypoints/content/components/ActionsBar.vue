@@ -17,15 +17,17 @@ const { instancePreferences } = await usePreferences();
         auto
       />
     </li>
-    <li
-      v-for="(preferenceValue, preferenceKey) in instancePreferences[type]"
-      class="prismai-accordions__item"
-    >
-      <ActionAccordion
-        :preference-value="preferenceValue"
-        :preference-key="preferenceKey"
-      />
-    </li>
+    <template v-if="instancePreferences">
+      <li
+        v-for="(preferenceValue, preferenceKey) in instancePreferences[type]"
+        class="prismai-accordions__item"
+      >
+        <ActionAccordion
+          :preference-value="preferenceValue"
+          :preference-key="preferenceKey"
+        />
+      </li>
+    </template>
   </ul>
 </template>
 

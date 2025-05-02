@@ -14,7 +14,7 @@ type PreferencesMetadata = {
   }
 }
 
-const instancePreferences = ref()
+const instancePreferences = ref<Preferences>()
 
 export async function usePreferences() {
   const preferencesMetadata: PreferencesMetadata = {
@@ -45,10 +45,10 @@ export async function usePreferences() {
       },
     },
     sentence: {
-      language: {
-        id: 'sentence-language',
+      translate: {
+        id: 'sentence-translate',
         title: 'Translation Language',
-        description: 'Set your desired target language.',
+        description: 'Set your desired target language to translate.',
         type: 'select',
         options: [
           { code: 'en', label: 'English' },
