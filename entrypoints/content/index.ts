@@ -7,9 +7,9 @@ export default defineContentScript({
   matches: ['*://*.google.com/*'], // For production should be: ['<all_urls>'],
   cssInjectionMode: 'ui',
   async main(ctx) {
-    console.log('Hello content.');
+    // WXT Content Script Shadow Root UI: https://wxt.dev/guide/essentials/content-scripts#shadow-root
     const ui = await createShadowRootUi(ctx, {
-      name: 'example-ui',
+      name: 'prismai-ui',
       position: 'inline',
       anchor: 'body',
       onMount: (container) => {
