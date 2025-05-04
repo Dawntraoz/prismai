@@ -19,9 +19,9 @@ const openResult = ref(true);
 const fetchBuiltInByAction = async (actionType: PreferenceKeys) => {
   if (!actionType || !textSelection.value || isLoading.value) return;
 
-  console.log(
-    `[ContentScript] Sending message with action type: "${actionType}" and text selection: "${textSelection.value}"`
-  );
+  // console.log(
+  //   `[ContentScript] Sending message with action type: "${actionType}" and text selection: "${textSelection.value}"`
+  // );
   isLoading.value = true;
   result.value = null;
   error.value = null;
@@ -34,7 +34,7 @@ const fetchBuiltInByAction = async (actionType: PreferenceKeys) => {
       "background"
     );
 
-    console.log("[ContentScript] Received response:", response);
+    // console.log("[ContentScript] Received response:", response);
     if (typeof response === "string" && response.startsWith("Error:")) {
       throw new Error(response.substring(7)); // Remove "Error: " prefix
     }
