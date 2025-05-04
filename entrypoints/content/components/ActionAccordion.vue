@@ -45,7 +45,7 @@ const fetchBuiltInByAction = async (actionType: PreferenceKeys) => {
       throw new Error("Unexpected response format received.");
     }
   } catch (err) {
-    console.error("[ContentScript] Error fetching AI response:", error);
+    console.error("[ContentScript] Error fetching AI response:", err);
     error.value =
       err instanceof Error ? err.message : "An unknown error occurred.";
     result.value = null;
