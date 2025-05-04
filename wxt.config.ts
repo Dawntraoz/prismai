@@ -7,6 +7,6 @@ export default defineConfig({
   manifest: () => ({
     key: import.meta.env.WXT_WEB_EXTENSION_KEY,
     permissions: ['storage', 'aiLanguageModelOriginTrial'],
-    'trial_tokens': [import.meta.env.WXT_PROMPT_API_TOKEN]
+    'trial_tokens': [import.meta.env.WXT_PROMPT_API_TOKEN, import.meta.env.WXT_LANGUAGE_DETECTOR_API_TOKEN, import.meta.env.WXT_TRANSLATOR_API_TOKEN, import.meta.env.WXT_SUMMARIZER_API_TOKEN],
   }),
 });
