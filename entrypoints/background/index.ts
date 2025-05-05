@@ -6,7 +6,7 @@ type RequestPayload = {
   textSelection: string;
 }
 
-let fetchPromptApi: (actionType: Omit<PreferenceKeys, 'translate' | 'summarize'>, textSelection: string) => Promise<string>;
+let fetchPromptApi: (actionType: Exclude<PreferenceKeys, 'translate' | 'summarize'>, textSelection: string) => Promise<string>;
 
 export default defineBackground(() => {
   (async () => {

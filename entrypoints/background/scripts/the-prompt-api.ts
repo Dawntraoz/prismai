@@ -21,7 +21,7 @@ export const useThePromptApi = async () => {
     'related-terms': `Provide related terms. List 3 - 5 words that are closely related in meaning.`,
   }
 
-  const promptApi = async (actionType: Omit<PreferenceKeys, 'translate' | 'summarize'>, textSelection: string) => {
+  const promptApi = async (actionType: Exclude<PreferenceKeys, 'translate' | 'summarize'>, textSelection: string) => {
     return await session.prompt(`
         For this content: "${textSelection}" get the following information:
 
