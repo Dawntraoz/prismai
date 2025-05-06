@@ -8,5 +8,12 @@ export default defineConfig({
     key: import.meta.env.WXT_WEB_EXTENSION_KEY,
     permissions: ['storage', 'aiLanguageModelOriginTrial'],
     'trial_tokens': [import.meta.env.WXT_PROMPT_API_TOKEN, import.meta.env.WXT_LANGUAGE_DETECTOR_API_TOKEN, import.meta.env.WXT_TRANSLATOR_API_TOKEN, import.meta.env.WXT_SUMMARIZER_API_TOKEN],
+    web_accessible_resources: [{
+      resources: ['fonts/Roboto/Roboto-VariableFont_wdth,wght.ttf'],
+      matches: ['*://*.google.com/*']
+    }]
   }),
+  webExt: {
+    disabled: true,
+  }
 });

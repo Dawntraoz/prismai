@@ -37,7 +37,7 @@ const { currentPage, updatePage } = await usePopupNavigation();
     rotate: 40deg;
     width: 600px;
     height: 342px;
-    background-image: url(./prismai-bg.svg);
+    background-image: url(/prismai-bg.svg);
     background-size: contain;
     background-repeat: no-repeat;
   }

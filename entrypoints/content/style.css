@@ -12,7 +12,7 @@
 
 @font-face {
   font-family: "Roboto Variable";
-  src: url("./fonts/Roboto/Roboto-VariableFont_wdth,wght.ttf")
+  src: url("chrome-extension://__MSG_@@extension_id__/fonts/Roboto/Roboto-VariableFont_wdth,wght.ttf")
     format("truetype");
   font-weight: 100 900;
   font-style: normal;

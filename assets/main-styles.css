@@ -20,8 +20,7 @@
 
 @font-face {
   font-family: "Roboto Variable";
-  src: url("./fonts/Roboto/Roboto-VariableFont_wdth,wght.ttf")
-    format("truetype");
+  src: url("/fonts/Roboto/Roboto-VariableFont_wdth,wght.ttf") format("truetype");
   font-weight: 100 900;
   font-style: normal;
   font-display: swap;
@@ -29,7 +28,7 @@
 
 @font-face {
   font-family: "Gantari";
-  src: url("./fonts/Gantari/Gantari-VariableFont_wght.ttf") format("truetype");
+  src: url("/fonts/Gantari/Gantari-VariableFont_wght.ttf") format("truetype");
   font-weight: 100 900;
   font-style: normal;
   font-display: swap;
