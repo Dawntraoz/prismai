@@ -4,7 +4,7 @@ import App from './App.vue';
 
 // Content Scripts references: https://wxt.dev/guide/essentials/content-scripts
 export default defineContentScript({
-  matches: ['*://*.google.com/*'], // For production should be: ['<all_urls>'],
+  matches: ['<all_urls>'], // For production should be: ['<all_urls>'],
   cssInjectionMode: 'ui',
   async main(ctx) {
     // WXT Content Script Shadow Root UI: https://wxt.dev/guide/essentials/content-scripts#shadow-root

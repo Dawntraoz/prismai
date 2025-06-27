@@ -8,13 +8,14 @@ export type PreferenceMetadata = {
     label: string;
   }[];
 }
+
 type PreferencesMetadata = {
   [key: string]: {
     [key: string]: PreferenceMetadata;
   }
 }
 
-const instancePreferences = ref<Preferences>()
+const instancePreferences = ref<Preferences>(defaultPreferences)
 
 export async function usePreferences() {
   const preferencesMetadata: PreferencesMetadata = {

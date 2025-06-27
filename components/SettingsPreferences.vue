@@ -4,6 +4,22 @@ import InputSelect from "@/components/inputs/InputSelect.vue";
 
 const { preferencesMetadata, instancePreferences, updatePreferences } =
   await usePreferences();
+
+const updatePreferencesValue = (
+  $event: boolean,
+  typeKey: "word" | "sentence",
+  key: PreferenceKeys
+) => {
+  const currentPreferences = toRaw(instancePreferences.value);
+  const newPreferences: Preferences = {
+    ...currentPreferences,
+    [typeKey]: {
+      ...currentPreferences[typeKey],
+      [key]: $event,
+    },
+  };
+  updatePreferences(newPreferences);
+};
 </script>
 
 <template>
@@ -21,31 +37,13 @@ const { preferencesMetadata, instancePreferences, updatePreferences } =
           v-if="preference.type === 'checkbox'"
           :preference="preference"
           :modelValue="instancePreferences[typeKey][key]"
-          @update:modelValue="
-            ($event: boolean) =>
-              updatePreferences({
-                ...instancePreferences,
-                [typeKey]: {
-                  ...instancePreferences[typeKey],
-                  [key]: $event,
-                },
-              })
-          "
+          @update:modelValue="updatePreferencesValue($event, typeKey, key)"
         />
         <InputSelect
           v-else-if="preference.type === 'select'"
           :preference="preference"
           :modelValue="instancePreferences[typeKey][key]"
-          @update:modelValue="
-            ($event: string) =>
-              updatePreferences({
-                ...instancePreferences,
-                [typeKey]: {
-                  ...instancePreferences[typeKey],
-                  [key]: $event,
-                },
-              })
-          "
+          @update:modelValue="updatePreferencesValue($event, typeKey, key)"
         />
       </template>
     </form>

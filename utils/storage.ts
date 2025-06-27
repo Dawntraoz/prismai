@@ -26,21 +26,22 @@ export type Preferences = {
   sentence: SentencePreferences;
 }
 
+export const defaultPreferences = {
+  word: {
+    usage: true,
+    etymology: false,
+    connotations: false,
+    'related-terms': false,
+  },
+  sentence: {
+    translate: 'en',
+    summarize: true,
+  }
+}
 export const preferences = storage.defineItem<Preferences>(
   'local:preferences',
   {
-    fallback: {
-      word: {
-        usage: true,
-        etymology: false,
-        connotations: false,
-        'related-terms': false,
-      },
-      sentence: {
-        translate: 'en',
-        summarize: true,
-      }
-    },
+    fallback: defaultPreferences,
     version: 1,
   },
 );
