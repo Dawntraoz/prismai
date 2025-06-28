@@ -37,6 +37,10 @@
 /*
 ** Main Styles
 */
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   font-family: "Roboto Variable", sans-serif;
   margin: 0;
@@ -70,12 +74,14 @@ a {
   color: var(--prismai-primary-color-dark);
 }
 
-button:not(.icon) {
+button:not(.icon),
+a[type="button"] {
   font-family: "Roboto Variable", sans-serif;
   font-size: 16px;
   font-weight: 350;
   text-align: center;
   color: var(--prismai-main-white);
+  text-decoration: none;
 
   background-color: var(--prismai-primary-color-dark);
   width: 100%;
@@ -85,6 +91,11 @@ button:not(.icon) {
   border-radius: 20px;
 
   cursor: pointer;
+
+  &.white {
+    background-color: var(--prismai-main-white);
+    color: var(--prismai-main-black);
+  }
 }
 
 button.icon {
