@@ -2,7 +2,7 @@
 
 This repository is a demo project created for the talk “**Unlocking the power of Web Extensions with Vue**” by Alba Silvente ([@dawntraoz](https://links.dawntraoz.com/)).
 
-> **Disclaimer**: This project is an experimental showcase of what's possible with Chrome's built-in AI APIs (available through registration) and Web Extension development using Vue and WXT. As of May 14, 2025, this is a work-in-progress and may include bugs, performance limitations, or unsupported features.
+> **Disclaimer**: This project is a showcase of Chrome's built-in AI APIs and Web Extension development using Vue and WXT. The built-in AI APIs are now stable in Chrome 127+. This project may include bugs, performance limitations, or experimental features as it continues to evolve.
 
 ## What is PrismAI?
 
@@ -51,55 +51,37 @@ To load the extension in Chrome:
 2. Enable **Developer mode** (toggle in the top-right corner).
 3. Click **Load unpacked** and select the folder: `<YOUR_PROJECT_FOLDER_PATH>/.output/chrome-mv3-dev`.
 
-### Enabling Built-in AI APIs
+### Using Built-in AI APIs
 
-To use the AI features, you need to register for **Origin Trials** and configure API tokens in your local environment.
+The AI features in PrismAI use Chrome's built-in AI APIs, which are now stable and available in Chrome 127+. No Origin Trials registration or API tokens are required.
 
-> ⚠️ Important: Setting your Extension ID for Origin Trials
-> When you load this extension locally via "Load unpacked," Chrome assigns it a temporary, unique ID. This ID is crucial for registering the built-in AI APIs for the Origin Trials (detailed in the steps below). You have two main approaches:
->
-> 1. By default, Chrome assigns a new, **unique ID each time**. Find this ID on `chrome://extensions/` and use it for registration. Be aware that this ID can change, potentially requiring re-registration for the Origin Trials.
->
-> 2. Set a consistent Extension ID (Recommended):
->
-> - Follow Chrome's official guide to [keep a consistent extension ID](https://developer.chrome.com/docs/extensions/reference/manifest/key#keep-consistent-id).
-> - Once you have your public key string, add it to your project's `.env` file like this: `WXT_WEB_EXTENSION_KEY=<PUBLIC_KEY>`. This key will ensure your extension ID remains constant during development.
+#### Prerequisites
 
-#### 1. Translator & Language Detector API
+- **Chrome 127 or later**: The built-in AI APIs are available as stable features in Chrome 127+
+- **AI model availability**: Some APIs may require downloading AI models on first use
 
-- Register your web extension at [Language Detector Origin Trial](https://developer.chrome.com/origintrials/#/view_trial/662592095176884225) and [Translator Origin Trial](https://developer.chrome.com/origintrials/#/view_trial/4445615782168100865) using origin `chrome-extension://<YOUR_EXTENSION_ID>`
-- Add the tokens to your `.env` file:
+#### Available APIs
 
-```ini
-WXT_LANGUAGE_DETECTOR_API_TOKEN=<your_token_here>
-WXT_TRANSLATOR_API_TOKEN=<your_token_here>
-```
+#### 1. Language Detector & Translator API
 
-- Follow the steps on [Language Detector API docs](https://developer.chrome.com/docs/ai/language-detection) and [Translator API docs](https://developer.chrome.com/docs/ai/translator-api) to get started with this API
+These APIs work together to detect the source language and translate text:
+
+- **Language Detector API**: Automatically detects the language of selected text
+- **Translator API**: Translates content to the user's preferred language
+
+Follow the [Language Detector API docs](https://developer.chrome.com/docs/ai/language-detection) and [Translator API docs](https://developer.chrome.com/docs/ai/translator-api) for implementation details.
 
 #### 2. Summarizer API
 
-- Register your web extension at [Summarizer Origin Trial](https://developer.chrome.com/origintrials/#/view_trial/1923599990840623105) using origin `chrome-extension://<YOUR_EXTENSION_ID>`
-- Add the token to your `.env` file:
+Provides quick "tl;dr" summaries of longer text selections.
 
-```ini
-WXT_SUMMARIZER_API_TOKEN=<your_token_here>
-```
+Follow the [Summarizer API docs](https://developer.chrome.com/docs/ai/summarizer-api) for implementation details.
 
-- Follow the steps on [Summarizer API docs](https://developer.chrome.com/docs/ai/summarizer-api) to get started with this API
+#### 3. Prompt API
 
-#### 3. The Prompt API
+Powers contextual actions on selected words and text, generating descriptions, usage examples, and other insights.
 
-> ⚠️ The Prompt API is experimental and intended for prototyping only. Features may change or never reach stable release.
-
-- Register your web extension at [The Prompt API Origin Trial](https://developer.chrome.com/origintrials/#/view_trial/320318523496726529) using origin `chrome-extension://<YOUR_EXTENSION_ID>`
-- Add the token to your `.env` file:
-
-```ini
-WXT_PROMPT_API_TOKEN=<your_token_here>
-```
-
-- Follow the steps on [The Prompt API docs](https://developer.chrome.com/docs/extensions/ai/prompt-api) to get started with this API
+Follow the [Prompt API docs](https://developer.chrome.com/docs/extensions/ai/prompt-api) for implementation details.
 
 ### Recommended IDE Setup
 
@@ -111,7 +93,7 @@ WXT_PROMPT_API_TOKEN=<your_token_here>
 - Web Extension Storage: [Built-in WXT storage](https://wxt.dev/storage.html)
 - Web Extension Messaging: [webext-bridge](https://www.npmjs.com/package/webext-bridge)
 - [Vue 3](https://vuejs.org/) with Composition API
-- Browser APIs: Chrome Built-in AI APIs (Summarizer, Translator, Language Detector, Prompt) via Origin Trials, and [Selection API](https://developer.mozilla.org/en-US/docs/Web/API/Selection_API)
+- Browser APIs: Chrome Built-in AI APIs (Summarizer, Translator, Language Detector, Prompt) and [Selection API](https://developer.mozilla.org/en-US/docs/Web/API/Selection_API)
 
 ## Resources
 

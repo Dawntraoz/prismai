@@ -1,7 +1,7 @@
 // Summarizer API: https://developer.chrome.com/docs/ai/summarizer-api
 export const useSummarizerApi = async (textSelection: string) => {
-  const options = {
-    type: 'tl;dr',
+  const options: SummarizerCreateCoreOptions = {
+    type: 'tldr',
     format: 'plain-text',
     length: 'medium',
   }
