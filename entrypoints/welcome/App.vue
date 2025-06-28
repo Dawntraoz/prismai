@@ -24,7 +24,11 @@
     <section class="welcome-page__features">
       <h2>A smarter way to read the web</h2>
       <div class="welcome-page__flex">
-        <article v-for="feature in coreFeatures" class="welcome-page__quote">
+        <article
+          v-for="feature in coreFeatures"
+          :key="feature.title.replace(' ', '-')"
+          class="welcome-page__quote"
+        >
           <span><component :is="feature.icon" width="16" height="16" /></span>
           <header>
             <h3>{{ feature.title }}</h3>
@@ -34,7 +38,11 @@
           </header>
         </article>
 
-        <article v-for="feature in features" class="welcome-page__card">
+        <article
+          v-for="feature in features"
+          :key="feature.title.replace(' ', '-')"
+          class="welcome-page__card"
+        >
           <img :src="feature.image" :alt="feature.imageAlt" />
           <component :is="feature.icon" />
           <header>
@@ -50,13 +58,16 @@
     <section id="get-started" class="welcome-page__get-started">
       <h2>Get started in 3 simple steps</h2>
       <div class="welcome-page__flex triple">
-        <article v-for="step in steps" class="welcome-page__quote">
-          <span>{{ step.number }} 1</span>
+        <article
+          v-for="step in steps"
+          :key="step.title.replace(' ', '-')"
+          class="welcome-page__quote"
+        >
+          <span>{{ step.number }}</span>
           <header>
-            <h3>{{ step.title }} Highlight text</h3>
+            <h3>{{ step.title }}</h3>
             <p>
-              {{ step.description }} Select any word or paragraph on any
-              website.
+              {{ step.description }}
             </p>
           </header>
         </article>
@@ -77,6 +88,7 @@
       <div class="welcome-page__accordions">
         <article
           v-for="(faq, index) in faqs"
+          :key="faq.question.replace(' ', '-')"
           @click="accordionOpen[index] = !accordionOpen[index]"
           class="welcome-page__question"
           :class="{ open: accordionOpen[index] }"
