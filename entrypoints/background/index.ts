@@ -9,6 +9,16 @@ type RequestPayload = {
 let fetchPromptApi: (actionType: Exclude<PreferenceKeys, 'translate' | 'summarize'>, textSelection: string) => Promise<string>;
 
 export default defineBackground(() => {
+  // Handle extension installation - open welcome page
+  browser.runtime.onInstalled.addListener((details) => {
+    if (details.reason === 'install') {
+      const welcomeUrl = browser.runtime.getURL('/welcome.html');
+      browser.tabs.create({
+        url: welcomeUrl
+      });
+    }
+  });
+
   (async () => {
     const { promptApi } = await useThePromptApi();
     fetchPromptApi = promptApi;
