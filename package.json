@@ -12,14 +12,19 @@
     "zip": "wxt zip",
     "zip:firefox": "wxt zip -b firefox",
     "compile": "vue-tsc --noEmit",
-    "postinstall": "wxt prepare"
+    "postinstall": "wxt prepare",
+    "test:e2e": "playwright test -gv @codegen",
+    "test:e2e-ui": "playwright test --ui",
+    "test:codegen": "playwright test tests/e2e/codegen.spec.ts"
   },
   "dependencies": {
     "vue": "^3.5.17",
     "webext-bridge": "^6.0.1"
   },
   "devDependencies": {
+    "@playwright/test": "^1.53.2",
     "@types/dom-chromium-ai": "^0.0.9",
+    "@types/node": "^24.0.9",
     "@wxt-dev/module-vue": "^1.0.2",
     "typescript": "5.8.3",
     "vue-tsc": "^2.2.10",
