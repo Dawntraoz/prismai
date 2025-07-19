@@ -51,6 +51,24 @@ To load the extension in Chrome:
 2. Enable **Developer mode** (toggle in the top-right corner).
 3. Click **Load unpacked** and select the folder: `<YOUR_PROJECT_FOLDER_PATH>/.output/chrome-mv3-dev`.
 
+### Testing e2e with Playwright
+
+> Remember to run `pnpm build` before running the tests so the extension exists.
+
+```sh
+# Runs the end-to-end tests
+pnpm test:e2e
+
+# Starts the interactive UI mode
+pnpm test:e2e-ui
+
+# Runs the codegen tests specifically
+pnpm test:codegen
+
+# Runs the tests in debug mode
+pnpm test:e2e -- --debug
+```
+
 ### Using Built-in AI APIs
 
 The AI features in PrismAI use Chrome's built-in AI APIs, which are now stable and available in Chrome 127+. No Origin Trials registration or API tokens are required.
